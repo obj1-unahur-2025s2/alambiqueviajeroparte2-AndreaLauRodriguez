@@ -1,108 +1,217 @@
-object luke{
-    var cantidadViajes = 0
-    var recuerdo = null
-    var vehiculo = alambiqueVeloz
-
-    method cantidadViajes() = cantidadViajes 
-
-    method viajar(lugar){
-        if (lugar.puedeLlegar(vehiculo)) {
-            cantidadViajes = cantidadViajes + 1
-            recuerdo = lugar.recuerdoTipico()
-            vehiculo.desgaste()
-        }
+object luke {
+var cantidadDeViajes  = 0
+var recuerdo = "llavero torre Eiffel"
+var vehiculo = alambiqueVeloz
+method cambiarVehiculo (nuevoVehiculo){
+  vehiculo = nuevoVehiculo
+   }
+method vehiculo() = vehiculo   
+method viajarHacia(destino) {
+    if (self.puedeLlegarA(destino)){
+        cantidadDeViajes = cantidadDeViajes + 1
+        recuerdo = destino.recuerdoQueTrae()
+        vehiculo.recorrer(destino)
     }
-    method recuerdo() = recuerdo
-    method vehiculo(nuevo) {vehiculo = nuevo}
 }
+method puedeLlegarA(destino) = destino.puedeLlegarA(vehiculo)
+method recuerdoQueTrae() = recuerdo
+method cantidadDeViajes() = cantidadDeViajes
 
+}
 object alambiqueVeloz {
-    var rapido = true
-    var combustible = 20
-    const consumoPorViaje = 10
-    var patente = "AB123JK"
-    method puedeFuncionar() = combustible >= consumoPorViaje
-    method desgaste() {
-        combustible = combustible - consumoPorViaje
+var esRapido = true
+var combustible = 50
+const consumoPorViaje =  10
+method esRapido() = esRapido
+method recorrer(destino) {
+    if (combustible > 0) {
+        combustible = combustible - 10
+    } else {
+        esRapido = false
     }
-    method rapido() = rapido
-    method patenteValida() = patente.head() == "A"
+}
+method puedeFuncionar() = combustible >= consumoPorViaje
+method combustible() = combustible
+method consumoPorViaje() = consumoPorViaje
+method velocidad() = 80
 }
 
-object paris{
-    method recuerdoTipico() = "Llavero Torre Eiffel"
-    method puedeLlegar(movil) =  movil.puedeFuncionar() 
-    
+
+object paris {
+method recuerdoQueTrae() = "llavero torre Eiffel"
+method puedeLlegarA(movil) = movil.puedeFuncionar()
+method tieneCombustible(movil) = movil.combustible()
+
 }
 
-object buenosAires{
-    method recuerdoTipico() = "Mate"
-    method puedeLlegar(auto) =  auto.rapido() 
+object buenosAires {
+method recuerdoQueTrae() = "mate"  
+method puedeLlegarA(auto) = auto.esRapido()
+method tieneCombustible(auto) = auto.combustible()
 }
 
 object bagdad {
-    var recuerdo = "bidon de petroleo"
-    method recuerdoTipico() = recuerdo
-    method recuerdo(nuevo) {recuerdo = nuevo }
-    method puedeLlegar(cualquierCosa) = true
+var recuerdo = "bidon con petroleo crudo"
+method cambiarRecuerdo(nuevoRecuerdo) {
+       recuerdo = nuevoRecuerdo
 }
-
-object lasVegas{
-    var homenaje = paris
-    method homenaje(lugar) {homenaje = lugar}
-    method recuerdoTipico() = homenaje.recuerdoTipico()
-    method puedeLlegar(vehiculo) = homenaje.puedeLlegar(vehiculo)
-}
-
-object antigualla {
-    var gangsters = 7
-    method puedeFuncionar() = gangsters.even()
-    method rapido() = gangsters > 6
-    method desgaste(){
-        gangsters = gangsters -1
-    }
-    method patenteValida() = chatarra.rapido() 
+method recuerdoQueTrae() = recuerdo
+method puedeLlegarA(cualquierCosa) = true
 
 }
+
+object lasVegas {
+var homenaje = paris
+method homenaje(nuevoHomenaje) {homenaje = nuevoHomenaje}
+method recuerdoQueTrae() = homenaje.recuerdoQueTrae()
+method puedeLlegarA(vehiculo) = homenaje.puedeLlegarA(vehiculo)
+}
+object hurlingham {
+method recuerdoQueTrae() = "campus"
+method puedeLlegarA(vehiculo) = vehiculo.puedeFuncionar() && vehiculo.esRapido() 
+
+}
+
+
 object chatarra {
-    var cañones = 10
-    var municiones = "ACME"
-    method puedeFuncionar() = municiones == "ACME" and cañones.between(6,12)
-    method rapido() = municiones.size() < cañones
+var cañones = 10
+var municiones = 100
+method puedeFuncionar() = municiones == 100 && cañones.between(6,12)
+method combustible() = cañones * 10
+method desgaste() {
+    cañones = cañones - 1
+    municiones = municiones - 10
+  }
+method cañones() = cañones  
+method esRapido() =  cañones > 8
+method recorrer(destino) {
+    if (cañones > 0 and municiones > 0) {
+        self.desgaste()
+    }
+}
+method velocidad()= 50
+}
+
+object  antigualla {
+var gangster = 7
+method puedeFuncionar() = gangster.even()
+method desgaste() {gangster = gangster  - 1}
+method esRapido() = gangster > 6
+method recorrer(destino) {
+    if (gangster < 7) {
+        self.desgaste()
+    }
+}
+method velocidad()= 60
+}
+
+
+object superConvertible {
+var convertido = antigualla
+method convertir(vehiculo) {convertido = vehiculo}
+method puedeFuncionar() = convertido.puedeFuncionar()
+method desgaste() {convertido.desgaste()}
+method esRapido() = convertido.esRapido()
+method recorrer(destino) {
+    if (convertido.puedeFuncionar()) {
+        convertido.recorrer(destino)
+    } 
+
+}
+
+method velocidad() = convertido.velocidad()
+
+}
+
+
+
+object moto {
+method esRapido() = true
+method puedeFuncionar() = self.esRapido()
+method desgaste() {}
+method recorrer(destino) { }
+method velocidad() = 100 
+
+}
+
+
+object antiguallaBlindada{
+    const gangsters = ["Marcos","Javier","Lucho","Yanina","Jony","Mecha","Brian"]
+    method puedeFuncionar()=gangsters.size().even()
+    method esRapido() = gangsters.size() > 6
     method desgaste(){
-        cañones = (cañones / 2).roundUp(0)
-        if (cañones < 5 )
-          municiones = municiones + " Obsoleto"
+        gangsters.remove(gangsters.anyOne())
     }
-    method patenteValida() = municiones.take(4) == "ACME" 
-    method cañones() = cañones
+    method velocidad(){
+        return gangsters.sum({c=>c.size()})
+    }
+    method subirAUnGangster(unGangster){
+       gangsters.add(unGangster)
+    }
 
+      method bajarAUnGangster(unGangster){
+       gangsters.remove(unGangster)
+    }  
+    method gangsters() = gangsters
 }
 
-object convertible{
-    var convertido = antigualla
-    method puedeFuncionar() = convertido.puedeFuncionar() 
-    method rapido() = convertido.rapido()
+object patanCar{
+    var velocidad = 90
+    method esRapido() = true
+    method puedeFuncionar() = not self.esRapido()
     method desgaste(){
-        convertido.desgaste()
     }
-    method convertir(vehiculo){
-        convertido = vehiculo
+    method velocidad()= velocidad
+    method hacerTrampa(){
+      velocidad = 0.max(velocidad*0.05)
     }
-    method patenteValida() = convertido.patenteValida()
- 
+    
+
 }
 
-object hurlingham{
-   method puedeLlegar(vehiculo) =
-     vehiculo.puedeFuncionar() and vehiculo.rapido() and vehiculo.patenteValida()
-  method recuerdoTipico() = "sticker de la Unahur"
+/*El profesor Locovich usa un vehículo que va
+ cambiando de forma y simula ser otros. 
+ Implementarlo con una lista de posibles vehículos 
+ en los que se puede convertir sucesivamente y permitir
+  que lo haga antes que comience la carrera.
+*/
+
+
+
+
+object carrera{
+    const inscriptos= []
+    const rechazados = []
+    var ciudad = buenosAires
+    method inscribirACarrera(unVehiculo){
+        if (ciudad.puedeLlegarA(unVehiculo)){
+            inscriptos.add(unVehiculo)}
+        else{
+            rechazados.add(unVehiculo)    
+        }
+    }
+    method inscriptos()=inscriptos
+    method rechazados()= rechazados
+    method cambiarCiudad(nuevaCiudad){
+        ciudad = nuevaCiudad
+    }
+    method replanificarCarrera(nuevaCiudad){
+        const listaAux= []
+        self.cambiarCiudad(nuevaCiudad)
+        listaAux.addAll(rechazados)
+        listaAux.addAll(inscriptos)
+        inscriptos.clear()
+        rechazados.clear()
+        listaAux.forEach({c=>self.inscribirACarrera(c)})
+    }
+    method irACarrera(){
+        inscriptos.forEach({c=>c.recorrer(ciudad)})
+    }
+    method ganador(){
+        return inscriptos.max({c=>c.velocidad()})
+    }
 }
 
 
-object moto{
-    method rapido() = true
-    method puedeFuncionar() = not moto.rapido()
-    method desgaste() { }
-    method patenteValida() = false
-}
+
+
