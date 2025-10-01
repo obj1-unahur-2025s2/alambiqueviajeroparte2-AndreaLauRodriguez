@@ -118,7 +118,6 @@ method recorrer(destino) {
     } 
 
 }
-
 method velocidad() = convertido.velocidad()
 
 }
@@ -153,6 +152,10 @@ object antiguallaBlindada{
        gangsters.remove(unGangster)
     }  
     method gangsters() = gangsters
+    method recorrer(destino) {
+    
+
+}
 }
 
 object patanCar{
@@ -165,18 +168,34 @@ object patanCar{
     method hacerTrampa(){
       velocidad = 0.max(velocidad*0.05)
     }
-    
+    method recorrer(destino){
+       self.hacerTrampa()
+    }
 
 }
 
-/*El profesor Locovich usa un vehículo que va
- cambiando de forma y simula ser otros. 
- Implementarlo con una lista de posibles vehículos 
- en los que se puede convertir sucesivamente y permitir
-  que lo haga antes que comience la carrera.
-*/
 
 
+object locovichCar{
+    const listadoCars = [superConvertible,chatarra,antigualla ]
+    var vehiculo = chatarra
+    method vehiculo()= vehiculo
+    method cambiarVehiculo(){
+        vehiculo = listadoCars.anyOne()
+    }
+    method velocidad()= vehiculo.velocidad()
+
+     method esRapido() = vehiculo.esRapido()
+    method puedeFuncionar() = vehiculo.puedeFuncionar()
+    method desgaste() = vehiculo.desgaste()
+    method recorrer(destino) {
+    if (vehiculo.puedeFuncionar()) {
+        vehiculo.recorrer(destino)
+    } 
+
+}
+
+}
 
 
 object carrera{

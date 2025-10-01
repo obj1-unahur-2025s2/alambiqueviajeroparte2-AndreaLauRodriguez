@@ -66,3 +66,53 @@ test "luke viaja a hurlingham en el convertible convertido en chatarra" {
   
 
   }
+
+  test "La moto puede participar de la carrera porque puede viajar a Hurlingham"{
+    carrera.cambiarCiudad(hurlingham)
+    carrera.inscribirACarrera(moto)
+    assert.equals([moto],carrera.inscriptos())
+
+  }
+test  "El Alambique Velos puede participar de la carrera tambien porque puede llegar a Hurlingham"{
+      carrera.cambiarCiudad(hurlingham)
+    carrera.inscribirACarrera(moto)
+    carrera.inscribirACarrera(alambiqueVeloz)
+    assert.equals([moto,alambiqueVeloz],carrera.inscriptos())
+
+}
+test "La moto puede participar de la carrera porque puede viajar a Paris"{
+    carrera.cambiarCiudad(paris)
+    carrera.inscribirACarrera(moto)
+    assert.equals([moto],carrera.inscriptos())
+
+  }
+
+  test "La chatarra puede participar de la carrera porque puede viajar a Paris"{
+    carrera.cambiarCiudad(paris)
+    carrera.inscribirACarrera(chatarra)
+    assert.equals([chatarra],carrera.inscriptos())
+
+  }
+
+   test "La chatarra puede participar de la carrera porque puede viajar a Buenos Aires"{
+    carrera.cambiarCiudad(buenosAires)
+    carrera.inscribirACarrera(chatarra)
+    assert.equals([chatarra],carrera.inscriptos())
+
+  }
+
+   test "La moto puede participar de la carrera porque puede viajar a Las Vegas"{
+    carrera.cambiarCiudad(lasVegas)
+    carrera.inscribirACarrera(moto)
+    assert.equals([moto],carrera.inscriptos())
+
+  }
+
+  test  "El Alambique Veloz ganala carrera a Hurlingham"{
+      carrera.cambiarCiudad(hurlingham)
+    carrera.inscribirACarrera(moto)
+    carrera.inscribirACarrera(alambiqueVeloz)
+
+    assert.equals(moto,carrera.ganador())
+
+}
