@@ -11,6 +11,8 @@ method viajarHacia(destino) {
         cantidadDeViajes = cantidadDeViajes + 1
         recuerdo = destino.recuerdoQueTrae()
         vehiculo.recorrer(destino)
+
+
     }
 }
 method puedeLlegarA(destino) = destino.puedeLlegarA(vehiculo)
@@ -35,7 +37,10 @@ method combustible() = combustible
 method consumoPorViaje() = consumoPorViaje
 method velocidad() = 80
 }
+object prueba{
 
+    
+}
 
 object paris {
 method recuerdoQueTrae() = "llavero torre Eiffel"
